@@ -51,11 +51,11 @@
                 {{-- <td>{{ $item->aktivitas_saat_ini }}</td> --}}
                 <td>
                     @if ($item->status == 0)
-                    <span class="badge text-bg-warning">Belum Diverifikasi</span>
+                    <span class="badge text-bg-warning"><i class="bi bi-exclamation-triangle me-1"></i> Belum Diverifikasi</span>
                     @elseif ($item->status == 1)
-                    <span class="badge text-bg-danger">Tidak Lolos</span>
+                    <span class="badge text-bg-danger"><i class="bi bi-exclamation-octagon me-1"></i> Tidak Lolos</span>
                     @elseif ($item->status == 2)
-                    <span class="badge text-bg-success"> Lolos Administrasi</span>
+                    <span class="badge text-bg-success"><i class="bi bi-check-circle me-1"></i> Lolos Administrasi</span>
                     @endif
                 </td>
                 <td><a href="{{route('peserta.edit', $item->id)}}" class="btn btn-success btn-xs">Edit</a></td>

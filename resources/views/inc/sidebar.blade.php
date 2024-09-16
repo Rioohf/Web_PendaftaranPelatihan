@@ -30,6 +30,11 @@
             </a>
           </li>
           <li>
+            <a href="{{route('userjurusan.index')}}">
+              <i class="bi bi-circle"></i><span>User Jurusan</span>
+            </a>
+          </li>
+          <li>
             <a href="{{route('gelombang.index')}}">
               <i class="bi bi-circle"></i><span>Gelombang</span>
             </a>

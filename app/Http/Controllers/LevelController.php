@@ -12,7 +12,7 @@ class LevelController extends Controller
      */
     public function index()
     {
-        $levels = Level::orderBy('id', 'desc')->get();
+        $levels = Level::whereNull('deleted_at')->orderBy('id', 'desc')->get();
         return view('level.index', compact('levels'));
     }
 
@@ -69,7 +69,9 @@ class LevelController extends Controller
      */
     public function destroy(Level $level)
     {
-        Level::where('id', $level)->delete();
+        $levels = Level::findOrFail($level);
+        $levels->deleted_at = now(); // Set the deleted_at timestamp to the current time
+        $levels->save(); // Save the changes
         return redirect()->to('level')->with('message', 'Data berhasil di hapus!');
     }
 }

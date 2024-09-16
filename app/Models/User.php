@@ -50,4 +50,11 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Level::class, 'id_level', 'id');
     }
+
+    // In App\Models\User.php
+
+    public function jurusan()
+    {
+        return $this->hasOne(Jurusan::class, 'id', 'id_jurusan');
+    }
 }

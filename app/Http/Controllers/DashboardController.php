@@ -17,7 +17,8 @@ class DashboardController extends Controller
         $jurusan = Jurusan::all();
         $gelombang = Gelombang::all();
         $peserta = Peserta_Pelatihan::orderBy('id', 'desc')->get();
-        return view('dashboard.index', compact('peserta', 'jurusan', 'gelombang'));
+        $previousCount = Peserta_Pelatihan::where('created_at', '<', now()->subDay())->count(); // retrieve previous count
+        return view('dashboard.index', compact('peserta', 'jurusan', 'gelombang', 'previousCount'));
     }
 
     /**
@@ -67,4 +68,5 @@ class DashboardController extends Controller
     {
         //
     }
+
 }

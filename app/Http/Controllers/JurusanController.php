@@ -12,7 +12,7 @@ class JurusanController extends Controller
      */
     public function index()
     {
-        $jurusan = Jurusan::orderBy('id', 'desc')->get();
+        $jurusan = Jurusan::whereNull('deleted_at')->orderBy('id', 'desc')->get();
         return view('jurusan.index', compact('jurusan'));
     }
 
@@ -69,7 +69,9 @@ class JurusanController extends Controller
      */
     public function destroy(string $id)
     {
-        Jurusan::where('id', $id)->delete();
+        $jurusan = Jurusan::findOrFail($id);
+        $jurusan->deleted_at = now(); // Set the deleted_at timestamp to the current time
+        $jurusan->save(); // Save the changes
         return redirect()->to('jurusan')->with('message', 'Data berhasil di hapus!');
     }
 }

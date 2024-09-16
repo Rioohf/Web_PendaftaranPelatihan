@@ -14,7 +14,7 @@ class GelombangController extends Controller
      */
     public function index()
     {
-        $data = Gelombang::all();
+        $data = Gelombang::whereNull('deleted_at')->get();
         return view('gelombang.index', compact('data'));
     }
 
@@ -73,7 +73,9 @@ class GelombangController extends Controller
      */
     public function destroy($id)
     {
-        Gelombang::where('id', $id)->delete();
+        $gelombangs = Gelombang::findOrFail($id);
+        $gelombangs->deleted_at = now(); // Set the deleted_at timestamp to the current time
+        $gelombangs->save(); // Save the changes
         return redirect()->to('gelombang')->with('message', 'Data berhasil di hapus!');
     }
 

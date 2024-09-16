@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         //select * from user
-        $users = User::orderBy('id', 'desc')->get();
+        $users = User::whereNull('deleted_at')->orderBy('id', 'desc')->get();
         return view('user.index', compact('users'));
     }
 
@@ -86,11 +86,9 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = User::find($id);
-        if ($user) {
-            $user->delete();
-        }
-
+        $users = User::findOrFail($id);
+        $users->deleted_at = now(); // Set the deleted_at timestamp to the current time
+        $users->save(); // Save the changes
         return redirect()->route('user.index')->with('success', 'Data Berhasil Dihapus');
     }
 }
